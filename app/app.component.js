@@ -1,4 +1,4 @@
-System.register(['angular2/core', './courses.component', './author.component'], function(exports_1, context_1) {
+System.register(['angular2/core', './courses.component', './author.component', './heart.component'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['angular2/core', './courses.component', './author.component'], 
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, courses_component_1, author_component_1;
+    var core_1, courses_component_1, author_component_1, heart_component_1;
     var AppComponent;
     return {
         setters:[
@@ -22,20 +22,34 @@ System.register(['angular2/core', './courses.component', './author.component'], 
             },
             function (author_component_1_1) {
                 author_component_1 = author_component_1_1;
+            },
+            function (heart_component_1_1) {
+                heart_component_1 = heart_component_1_1;
             }],
         execute: function() {
             AppComponent = (function () {
                 function AppComponent() {
                     this.isFavourite = false;
+                    this.change = new core_1.EventEmitter();
                 }
                 AppComponent.prototype.onClick = function () {
+                    // console.log("registered onclick");
                     this.isFavourite = !this.isFavourite;
+                    this.change.emit({ newValue: this.isFavourite });
                 };
+                __decorate([
+                    core_1.Input(), 
+                    __metadata('design:type', Object)
+                ], AppComponent.prototype, "isFavourite", void 0);
+                __decorate([
+                    core_1.Output(), 
+                    __metadata('design:type', Object)
+                ], AppComponent.prototype, "change", void 0);
                 AppComponent = __decorate([
                     core_1.Component({
                         selector: 'my-app',
-                        template: "\n    <h1>My First Angular 2 App</h1>\n    <button class=\"btn btn-primary\" [class.active]=\"isActive\">Submit</button>\n    <courses></courses>\n    <authors></authors>\n\n<!-- <i class=\"glyphicon glyphicon-star\"></i> -->\n    <i\n        class=\"glyphicon\" \n        [class.glyphicon-star]=\"isFavourite\" [class.glyhicon-star-empty]=\"!isFavourite\" \n        (click)=\"onClick()\">\n    </i>\n    ",
-                        directives: [courses_component_1.CoursesComponent, author_component_1.AuthorComponent]
+                        template: "\n    <h1>My First Angular 2 App</h1>\n    <!--<i class=\"glyphicon glyphicon-star\"></i>-->\n    <!-- <i\n        class=\"glyphicon\"\n        [class.glyphicon-star-empty]=\"!isFavorite\"\n        [class.glyphicon-star]=\"isFavorite\" \n        (click)=\"onClick()\">\n    </i> -->\n    <button class=\"btn btn-primary\" [class.active] =\"isFavourite\" [class.inactive]=\"!isFavourite\" (click)=\"onClick()\" >Submit</button> {{isFavourite}}\n    <courses></courses>\n    <authors></authors>\n    <heart></heart>\n\n    ",
+                        directives: [courses_component_1.CoursesComponent, author_component_1.AuthorComponent, heart_component_1.HeartComponent]
                     }), 
                     __metadata('design:paramtypes', [])
                 ], AppComponent);
