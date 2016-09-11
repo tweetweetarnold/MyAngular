@@ -2,27 +2,31 @@ import {Component, Input, Output, EventEmitter} from 'angular2/core';
 import {CoursesComponent} from './courses.component';
 import {AuthorComponent} from './author.component';
 import {HeartComponent} from './heart.component';
+import {ZippyComponent} from './zippy.component';
 
 @Component({
     selector: 'my-app',
+    directives: [CoursesComponent, AuthorComponent, HeartComponent, ZippyComponent],
     template: `
     <h1>My First Angular 2 App</h1>
     <!--<i class="glyphicon glyphicon-star"></i>-->
-    <!-- <i
+    <i
         class="glyphicon"
         [class.glyphicon-star-empty]="!isFavorite"
         [class.glyphicon-star]="isFavorite" 
         (click)="onClick()">
-    </i> -->
+    </i> 
     <button class="btn btn-primary" [class.active] ="isFavourite" [class.inactive]="!isFavourite" (click)="onClick()" >Submit</button> {{isFavourite}}
     <courses></courses>
     <authors></authors>
     <heart></heart>
 
-    `,
-    directives: [CoursesComponent, AuthorComponent, HeartComponent]
+    <br>
+    <zippy></zippy>
+`
 })
-export class AppComponent { 
+export class AppComponent {
+
     @Input() isFavourite = false;
 
     @Output() change = new EventEmitter();
